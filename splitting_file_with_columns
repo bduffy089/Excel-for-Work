@@ -1,0 +1,30 @@
+# Specify the path to your large CSV file
+$csvFilePath = "C:\Users\DuffyB\OneDrive - Dun and Bradstreet\Desktop\Customer Master Daltile_030824.csv"
+
+# Specify the output directory where you want to save the split files
+$outputDirectory = "C:\\Users\DuffyB\OneDrive - Dun and Bradstreet\Desktop"
+
+# Specify the maximum number of rows per split file
+$maxRowsPerFile = 49999
+
+# Read the CSV file
+$csvData = Import-Csv -Path $csvFilePath
+
+# Calculate the number of split files needed
+$numFiles = [math]::Ceiling($csvData.Count / $maxRowsPerFile)
+
+# Loop through and split the data
+for ($i = 0; $i -lt $numFiles; $i++) {
+    $startIndex = $i * $maxRowsPerFile
+    $endIndex = [math]::Min(($startIndex + $maxRowsPerFile), $csvData.Count)
+
+    # Select the rows for the current split
+    $splitData = $csvData[$startIndex..($endIndex - 1)]
+
+    # Create a new file name for the split file
+    $splitFileName = "split_$($i + 1).csv"
+    $splitFilePath = Join-Path -Path $outputDirectory -ChildPath $splitFileName
+
+    # Export the split data to a new CSV file
+    $splitData | Export-Csv -Path $splitFilePath -NoTypeInformation
+}
