@@ -1,0 +1,48 @@
+# Splitting Large CSV Files in MS PowerShell
+
+#  1. Update first line with the location of your file after Get-Content
+
+#  2. Name your output file in line #2  
+
+#  3. Specify the file size or row limit in 3rd line of code 
+
+#  4. Paste the below code into MS Powershell 
+
+
+$InputFilename = Get-Content 'C:\Users\DuffyB\OneDrive - Dun and Bradstreet\'
+
+$OutputFilenamePattern = 'Output_file_split'
+
+$LineLimit = 50000
+
+$line = 0
+
+$i = 0
+
+$file = 0
+
+$start = 0
+
+while ($line -le $InputFilename.Length) {
+
+if ($i -eq $LineLimit -Or $line -eq $InputFilename.Length) {
+
+$file++
+
+$Filename = "$OutputFilenamePattern$file.csv"
+
+$InputFilename[$start..($line-1)] | Out-File $Filename -Force
+
+$start = $line;
+
+$i = 0
+
+Write-Host "$Filename"
+
+}
+
+$i++;
+
+$line++
+
+}
