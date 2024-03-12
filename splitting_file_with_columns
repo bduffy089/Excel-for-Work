@@ -2,7 +2,7 @@
 $csvFilePath = "C:\Users\"
 
 # Specify the output directory where you want to save the split files
-$outputDirectory = "C:\\Users\DuffyB\OneDrive - Dun and Bradstreet\Desktop"
+$outputDirectory = "C:\\Users\"
 
 # Specify the maximum number of rows per split file
 $maxRowsPerFile = 49999
