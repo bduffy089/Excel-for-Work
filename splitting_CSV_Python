@@ -1,0 +1,31 @@
+import pandas as pd
+import os
+
+# Specify the path to your large CSV file
+csv_file_path = "path_to_your_file.csv"
+
+# Specify the output directory where you want to save the split files
+output_directory = "output_directory"
+
+# Specify the maximum number of rows per split file
+max_rows_per_file = 1000
+
+# Read the CSV file
+df = pd.read_csv(csv_file_path)
+
+# Calculate the number of split files needed
+num_files = -(-len(df) // max_rows_per_file)  # Equivalent to math.ceil(len(df) / max_rows_per_file)
+
+# Create output directory if it doesn't exist
+os.makedirs(output_directory, exist_ok=True)
+
+# Loop through and split the data
+for i, chunk in enumerate(np.array_split(df, num_files)):
+    # Create a new file name for the split file
+    split_file_name = f"split_{i + 1}.csv"
+    split_file_path = os.path.join(output_directory, split_file_name)
+
+    # Export the split data to a new CSV file
+    chunk.to_csv(split_file_path, index=False)
+
+print("Splitting complete.")
