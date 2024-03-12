@@ -1,5 +1,5 @@
 # Specify the path to your large CSV file
-$csvFilePath = "C:\Users\DuffyB\OneDrive - Dun and Bradstreet\Desktop\Customer Master Daltile_030824.csv"
+$csvFilePath = "C:\Users\"
 
 # Specify the output directory where you want to save the split files
 $outputDirectory = "C:\\Users\DuffyB\OneDrive - Dun and Bradstreet\Desktop"
